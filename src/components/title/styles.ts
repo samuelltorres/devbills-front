@@ -6,7 +6,6 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.375rem;
-  padding: 0 1.5rem 1.5rem 1.5rem;
 
   h2 {
     font-size: 1.25rem;
