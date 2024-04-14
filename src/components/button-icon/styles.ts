@@ -9,23 +9,21 @@ export const Container = styled.button`
   width: 2.25rem;
   height: 2.25rem;
   border-radius: 0.25rem;
-  background-color: ${theme.slate[500]};
-  border: 1px ${theme.slate[500]};
+  background-color: ${theme.zinc[400]};
+  border: 0;
   padding: 0;
   transition: all 150ms;
 
   &:hover {
-    background-color: ${theme.slate[600]};
-    border: 1px solid ${theme.slate[500]};
+    background-color: ${theme.zinc[600]};
   }
 
   &:active {
-    background-color: ${theme.slate[800]};
-    border: 1px solid ${theme.slate[700]};
+    background-color: ${theme.zinc[700]};
   }
 
   svg {
-    fill: ${theme.slate[100]};
+    fill: ${theme.zinc[100]};
     height: 1.25rem;
     width: 3rem;
   }
