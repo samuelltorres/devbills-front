@@ -21,7 +21,6 @@ export const Container = styled.div<ContainerProps>`
   gap: 1rem;
   background-color: ${theme.zinc[800]};
   border-radius: 0.25rem;
-  border: 1px solid ${theme.zinc[700]};
   width: 100%;
 
   svg {

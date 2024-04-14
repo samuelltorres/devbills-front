@@ -57,7 +57,6 @@ export const ChartContainer = styled.div`
   flex-direction: column;
   padding: 1rem;
   background-color: ${theme.zinc[800]};
-  border: 1px solid ${theme.zinc[700]};
   border-radius: 0.25rem;
   gap: 0.75rem;
 
@@ -87,7 +86,6 @@ export const Aside = styled.aside`
   padding: 1rem;
   border-radius: 0.25rem;
   background-color: ${theme.zinc[800]};
-  border: 1px solid ${theme.zinc[700]};
 
   header {
     display: flex;
