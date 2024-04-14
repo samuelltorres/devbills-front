@@ -20,6 +20,7 @@ export const Container = styled.div<ContainerProps>`
   padding: 1rem;
   gap: 1rem;
   background-color: ${theme.zinc[800]};
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.35);
   border-radius: 0.25rem;
   width: 100%;
 
