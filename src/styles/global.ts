@@ -14,9 +14,7 @@ export default createGlobalStyle`
     width: 100vw; 
     height: 100vh; 
     -webkit-font-smoothing: antialiased;
-    /* background-color: ${theme.colors.black}; */
-    background: radial-gradient(ellipse 80% 80% at 50% -60%,rgba(120,119,198,0.9), ${theme.zinc[950]} );
-    backdrop-filter: blur(150px);
+    background-color: ${theme.zinc[900]};
 
 
   }
