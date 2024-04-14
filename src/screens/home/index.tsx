@@ -6,7 +6,17 @@ import { Card } from '../../components/card';
 import { Input } from '../../components/input';
 import { Logo } from '../../components/logo';
 import { Title } from '../../components/title';
-import { Balance, Filters, Header, InputGroup, Main, Section } from './styles';
+import {
+  Balance,
+  ChartAction,
+  ChartContainer,
+  ChartContent,
+  Filters,
+  Header,
+  InputGroup,
+  Main,
+  Section,
+} from './styles';
 
 export function Home() {
   return (
@@ -25,11 +35,11 @@ export function Home() {
             <InputGroup>
               <InputMask
                 component={Input}
-                mask="dd/mm/yyyy"
+                mask="dd/mm/aaaa"
                 replacement={{
                   d: /\d/,
                   m: /\d/,
-                  y: /\d/,
+                  a: /\d/,
                 }}
                 variant="black"
                 label="Início"
@@ -37,11 +47,11 @@ export function Home() {
               />
               <InputMask
                 component={Input}
-                mask="dd/mm/yyyy"
+                mask="dd/mm/aaaa"
                 replacement={{
                   d: /\d/,
                   m: /\d/,
-                  y: /\d/,
+                  a: /\d/,
                 }}
                 variant="black"
                 label="Fim"
@@ -55,6 +65,38 @@ export function Home() {
             <Card title="Receitas" amount={1000000} variant="incomes" />
             <Card title="Gastos" amount={1000000} variant="expenses" />
           </Balance>
+          <ChartContainer>
+            <header>
+              <Title
+                title="Gastos"
+                subtitle="Despesas por categoria no período"
+              />
+            </header>
+            <ChartContent></ChartContent>
+          </ChartContainer>
+          <ChartContainer>
+            <header>
+              <Title
+                title="Evolução Financeira"
+                subtitle="Saldo, Receitas e Gastos no ano"
+              />
+
+              <ChartAction>
+                <InputMask
+                  component={Input}
+                  mask="dd/mm/aaaa"
+                  replacement={{
+                    a: /\d/,
+                  }}
+                  variant="dark"
+                  label="Ano"
+                  placeholder="aaaa"
+                />
+                <ButtonIcon />
+              </ChartAction>
+            </header>
+            <ChartContent></ChartContent>
+          </ChartContainer>
         </Section>
       </Main>
     </>
