@@ -3,6 +3,7 @@ import { InputMask } from '@react-input/mask';
 import { Button } from '../../components/button';
 import { ButtonIcon } from '../../components/button-icon';
 import { Card } from '../../components/card';
+import { CreateCategoryDialog } from '../../components/create-category-dialog';
 import { Dialog } from '../../components/dialog';
 import { Input } from '../../components/input';
 import { Logo } from '../../components/logo';
@@ -29,8 +30,8 @@ export function Home() {
       <Header>
         <Logo />
         <div>
-          <Dialog trigger={<Button>Nova transação</Button>}>Olá</Dialog>
-          <Button>Nova categoria</Button>
+          <Button>Nova transação</Button>
+          <CreateCategoryDialog />
         </div>
       </Header>
       <Main>
