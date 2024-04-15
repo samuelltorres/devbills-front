@@ -63,6 +63,8 @@ export function CategoriesPieChart() {
           container: {
             backgroundColor: theme.zinc[900],
             boxShadow: '0px 0px 20px rgba(0, 0, 0, .5)',
+            border: '1px solid',
+            borderColor: theme.zinc[700],
             padding: 12,
             color: theme.zinc[100],
             fontFamily: 'Lexend',
