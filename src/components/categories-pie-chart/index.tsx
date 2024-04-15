@@ -52,8 +52,12 @@ export function CategoriesPieChart() {
       enableArcLabels={false}
       enableArcLinkLabels={false}
       colors={({ data }) => data.color}
-      margin={{ top: 20 }}
+      margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
       valueFormat={formatCurrency}
+      activeOuterRadiusOffset={6}
+      cornerRadius={5}
+      padAngle={2}
+      innerRadius={0.2}
       theme={{
         text: {
           fontFamily: 'Lexend',
@@ -75,14 +79,22 @@ export function CategoriesPieChart() {
       }}
       legends={[
         {
-          anchor: 'top',
-          direction: 'row',
+          anchor: 'right',
+          direction: 'column',
+          effects: [
+            {
+              on: 'hover',
+              style: {
+                itemTextColor: theme.zinc[50],
+              },
+            },
+          ],
+          itemHeight: 18,
           justify: false,
+          itemWidth: 100,
           translateX: 0,
-          translateY: -20,
-          itemWidth: 120,
-          itemHeight: 16,
-          itemTextColor: theme.zinc[200],
+          translateY: 56,
+          itemTextColor: theme.zinc[300],
           itemDirection: 'left-to-right',
           itemOpacity: 1,
           symbolSize: 10,
