@@ -19,6 +19,7 @@ import {
   Main,
   SearchTransaction,
   Section,
+  TransactionGroup,
 } from './styles';
 
 export function Home() {
@@ -110,27 +111,29 @@ export function Home() {
               <ButtonIcon />
             </SearchTransaction>
           </header>
-          <Transaction
-            id={2}
-            amount={20000}
-            date="09/09/2023"
-            category={{ title: 'Alimentação', color: '#ff33bb' }}
-            title="Mercado"
-          />
-          <Transaction
-            id={2}
-            amount={20000}
-            date="09/09/2023"
-            category={{ title: 'Alimentação', color: '#ff33bb' }}
-            title="Mercado"
-          />
-          <Transaction
-            id={2}
-            amount={20000}
-            date="09/09/2023"
-            category={{ title: 'Alimentação', color: '#ff33bb' }}
-            title="Mercado"
-          />
+          <TransactionGroup>
+            <Transaction
+              id={2}
+              amount={20000}
+              date="09/09/2023"
+              category={{ title: 'Alimentação', color: '#ff33bb' }}
+              title="Mercado"
+            />
+            <Transaction
+              id={2}
+              amount={20000}
+              date="09/09/2023"
+              category={{ title: 'Alimentação', color: '#ff33bb' }}
+              title="Mercado"
+            />
+            <Transaction
+              id={2}
+              amount={20000}
+              date="09/09/2023"
+              category={{ title: 'Alimentação', color: '#ff33bb' }}
+              title="Mercado"
+            />
+          </TransactionGroup>
         </Aside>
       </Main>
     </>
