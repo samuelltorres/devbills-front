@@ -7,6 +7,7 @@ import { theme } from '../../styles/theme';
 import { createCategorySchema } from '../../validators/schemas';
 import { CreateCategoryData } from '../../validators/types';
 import { Button } from '../button';
+import { ErrorMessage } from '../create-transaction-dialog/styles';
 import { Dialog } from '../dialog';
 import { Input } from '../input';
 import { Title } from '../title';
@@ -16,7 +17,11 @@ export function CreateCategoryDialog() {
   const { createCategory, fetchCategories } = useFetchAPI();
   const [open, setOpen] = useState(false);
 
-  const { register, handleSubmit, formState } = useForm<CreateCategoryData>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<CreateCategoryData>({
     defaultValues: {
       title: '',
       color: theme.zinc[500],
@@ -51,12 +56,17 @@ export function CreateCategoryDialog() {
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <Input
-              label="Nome"
-              placeholder="Nome da categoria..."
-              variant="black"
-              {...register('title')}
-            />
+            <div>
+              <Input
+                label="Nome"
+                placeholder="Nome da categoria..."
+                variant="black"
+                {...register('title')}
+              />
+              {errors.title && (
+                <ErrorMessage>{errors.title.message}</ErrorMessage>
+              )}
+            </div>
             <Input
               label="Cor"
               type="color"
