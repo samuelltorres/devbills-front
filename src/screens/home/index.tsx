@@ -46,10 +46,15 @@ export function Home() {
     resolver: zodResolver(transactionsFilterSchema),
   });
 
-  const { transactions, fetchTransactions } = useFetchAPI();
+  const { transactions, fetchTransactions, dashboard, fetchDashboard } =
+    useFetchAPI();
+
   useEffect(() => {
+    const { beginDate, endDate } = transactionsFilterForm.getValues();
+
+    fetchDashboard({ beginDate, endDate });
     fetchTransactions(transactionsFilterForm.getValues());
-  }, [fetchTransactions, transactionsFilterForm]);
+  }, [fetchTransactions, transactionsFilterForm, fetchDashboard]);
 
   const [selectedCategory, setSelectedCategory] =
     useState<CategoryProps | null>(null);
@@ -72,6 +77,17 @@ export function Home() {
       await fetchTransactions(data);
     },
     [fetchTransactions],
+  );
+
+  const onSubmitDashboard = useCallback(
+    async (data: TransactionsFilterData) => {
+      const { beginDate, endDate } = data;
+
+      await fetchDashboard({ beginDate, endDate });
+      await fetchTransactions(data);
+    },
+
+    [fetchDashboard, fetchTransactions],
   );
 
   return (
@@ -117,16 +133,26 @@ export function Home() {
                 {...transactionsFilterForm.register('endDate')}
               />
               <ButtonIcon
-                onClick={transactionsFilterForm.handleSubmit(
-                  onSubmitTransactions,
-                )}
+                onClick={transactionsFilterForm.handleSubmit(onSubmitDashboard)}
               />
             </InputGroup>
           </Filters>
           <Balance>
-            <Card title="Saldo" amount={1000000} variant="balance" />
-            <Card title="Receitas" amount={1000000} variant="incomes" />
-            <Card title="Gastos" amount={1000000} variant="expenses" />
+            <Card
+              title="Saldo"
+              amount={dashboard?.balance?.balance || 0}
+              variant="balance"
+            />
+            <Card
+              title="Receitas"
+              amount={dashboard?.balance?.incomes || 0}
+              variant="incomes"
+            />
+            <Card
+              title="Gastos"
+              amount={dashboard?.balance?.expenses * -1 || 0}
+              variant="expenses"
+            />
           </Balance>
           <ChartContainer>
             <header>
