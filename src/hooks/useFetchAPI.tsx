@@ -48,6 +48,9 @@ export function FetchAPIProvider({ children }: FetchAPIProviderProps) {
   const [categories, setCategories] = useState<Category[]>([]);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [dashboard, setDashboard] = useState<Dashboard>({} as Dashboard);
+  const [financialEvolution, setFinancialEvolution] = useState<
+    FinancialEvolution[]
+  >([]);
 
   const createTransaction = useCallback(async (data: CreateTransactionData) => {
     await APIService.createTransaction({
@@ -94,6 +97,17 @@ export function FetchAPIProvider({ children }: FetchAPIProviderProps) {
     [],
   );
 
+  const fetchFinancialEvolution = useCallback(
+    async ({ year }: FinancialEvolutionFilterData) => {
+      const financialEvolution = await APIService.getFinancialEvolution({
+        year: year.padStart(4, '0'),
+      });
+
+      setFinancialEvolution(financialEvolution);
+    },
+    [],
+  );
+
   return (
     <FetchAPIContext.Provider
       value={{
@@ -105,6 +119,8 @@ export function FetchAPIProvider({ children }: FetchAPIProviderProps) {
         transactions,
         fetchDashboard,
         dashboard,
+        fetchFinancialEvolution,
+        financialEvolution,
       }}
     >
       {children}
