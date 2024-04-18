@@ -16,3 +16,12 @@ export type CreateTransaction = {
   type: 'expense' | 'income';
   date: string;
 };
+
+export type Transaction = {
+  _id: string;
+  title: string;
+  amount: string;
+  type: 'income' | 'expense';
+  date: Date;
+  category: Category;
+};
