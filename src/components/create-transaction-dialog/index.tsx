@@ -11,6 +11,7 @@ import {
 } from '../../validators/schemas';
 import {
   CreateTransactionData,
+  FinancialEvolutionFilterData,
   TransactionsFilterData,
 } from '../../validators/types';
 import { Button } from '../button';
@@ -37,8 +38,14 @@ export function CreateTransactionDialog() {
     },
     resolver: zodResolver(transactionsFilterSchema),
   });
-  const { categories, fetchCategories, createTransaction, fetchTransactions } =
-    useFetchAPI();
+  const {
+    categories,
+    fetchCategories,
+    createTransaction,
+    fetchTransactions,
+    fetchDashboard,
+    fetchFinancialEvolution,
+  } = useFetchAPI();
   const [open, setOpen] = useState(false);
 
   const {
@@ -57,15 +64,32 @@ export function CreateTransactionDialog() {
     resolver: zodResolver(createTransactionSchema),
   });
 
+  const financialEvolutionFilterForm = useForm<FinancialEvolutionFilterData>({
+    defaultValues: {
+      year: dayjs().get('year').toString(),
+    },
+  });
+
   useEffect(() => {
     fetchCategories();
   }, [fetchCategories]);
 
   const handleClose = useCallback(() => {
+    const { beginDate, endDate } = transactionsFilterForm.getValues();
+
     reset();
     setOpen(false);
     fetchTransactions(transactionsFilterForm.getValues());
-  }, [fetchTransactions, transactionsFilterForm, reset]);
+    fetchDashboard({ beginDate, endDate });
+    fetchFinancialEvolution(financialEvolutionFilterForm.getValues());
+  }, [
+    reset,
+    fetchTransactions,
+    transactionsFilterForm,
+    fetchDashboard,
+    fetchFinancialEvolution,
+    financialEvolutionFilterForm,
+  ]);
 
   const onSubmit = useCallback(
     async (data: CreateTransactionData) => {
