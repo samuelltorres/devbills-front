@@ -7,11 +7,17 @@ import {
 } from 'react';
 
 import { APIService } from '../services/api';
-import { Category, Dashboard, Transaction } from '../services/api.types';
+import {
+  Category,
+  Dashboard,
+  FinancialEvolution,
+  Transaction,
+} from '../services/api.types';
 import { formatDate } from '../utils/format-date';
 import {
   CreateCategoryData,
   CreateTransactionData,
+  FinancialEvolutionFilterData,
   TransactionsFilterData,
 } from '../validators/types';
 
@@ -26,6 +32,10 @@ interface FetchAPIProps {
     filters: Pick<TransactionsFilterData, 'beginDate' | 'endDate'>,
   ) => Promise<void>;
   dashboard: Dashboard;
+  fetchFinancialEvolution: (
+    filters: FinancialEvolutionFilterData,
+  ) => Promise<void>;
+  financialEvolution: FinancialEvolution[];
 }
 
 const FetchAPIContext = createContext<FetchAPIProps>({} as FetchAPIProps);
