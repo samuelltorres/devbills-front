@@ -31,6 +31,8 @@ import {
   ChartAction,
   ChartContainer,
   ChartContent,
+  EmptyMessageChart,
+  EmptyMessageTransaction,
   Filters,
   Header,
   InputGroup,
@@ -206,10 +208,17 @@ export function Home() {
               )}
             </header>
             <ChartContent>
-              <CategoriesPieChart
-                expenses={dashboard.expenses}
-                onClick={handleSelectCategory}
-              />
+              {dashboard?.expenses?.length ? (
+                <CategoriesPieChart
+                  expenses={dashboard.expenses}
+                  onClick={handleSelectCategory}
+                />
+              ) : (
+                <EmptyMessageChart>
+                  {' '}
+                  Você ainda não tem despesas.
+                </EmptyMessageChart>
+              )}
             </ChartContent>
           </ChartContainer>
           <ChartContainer>
@@ -222,7 +231,7 @@ export function Home() {
               <ChartAction>
                 <InputMask
                   component={Input}
-                  mask="dd/mm/aaaa"
+                  mask="aaaa"
                   replacement={{
                     a: /\d/,
                   }}
@@ -239,9 +248,15 @@ export function Home() {
               </ChartAction>
             </header>
             <ChartContent>
-              <FinancialEvolutionBarChart
-                financialEvolution={financialEvolution}
-              />
+              {financialEvolution.length ? (
+                <FinancialEvolutionBarChart
+                  financialEvolution={financialEvolution}
+                />
+              ) : (
+                <EmptyMessageChart>
+                  Você ainda não tem uma evolução financeira.
+                </EmptyMessageChart>
+              )}
             </ChartContent>
           </ChartContainer>
         </Section>
@@ -263,7 +278,7 @@ export function Home() {
             </SearchTransaction>
           </header>
           <TransactionGroup>
-            {transactions?.length &&
+            {transactions?.length ? (
               transactions?.map((item, index) => (
                 <Transaction
                   key={item._id}
@@ -279,7 +294,12 @@ export function Home() {
                   title={item.title}
                   variant={item.type}
                 />
-              ))}
+              ))
+            ) : (
+              <EmptyMessageTransaction>
+                Você ainda não tem transações
+              </EmptyMessageTransaction>
+            )}
           </TransactionGroup>
         </Aside>
       </Main>

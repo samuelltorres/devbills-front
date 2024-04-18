@@ -133,3 +133,30 @@ export const CategoryBadge = styled.span<CategoryBadgeProps>`
     height: 0.875rem;
   }
 `;
+
+export const EmptyMessageTransaction = styled.span`
+  position: relative;
+  padding: 1rem 0;
+
+  font-size: 1.2rem;
+  color: ${theme.slate[50]};
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    height: 1px;
+    width: 5%;
+    background-color: ${theme.slate[200]};
+  }
+`;
+
+export const EmptyMessageChart = styled.span`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 1.2rem;
+  color: ${theme.slate[50]};
+`;
