@@ -5,8 +5,14 @@ import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { useFetchAPI } from '../../hooks/useFetchAPI';
-import { createTransactionSchema } from '../../validators/schemas';
-import { CreateTransactionData } from '../../validators/types';
+import {
+  createTransactionSchema,
+  transactionsFilterSchema,
+} from '../../validators/schemas';
+import {
+  CreateTransactionData,
+  TransactionsFilterData,
+} from '../../validators/types';
 import { Button } from '../button';
 import { Dialog } from '../dialog';
 import { Input } from '../input';
@@ -22,7 +28,17 @@ import {
 } from './styles';
 
 export function CreateTransactionDialog() {
-  const { categories, fetchCategories, createTransaction } = useFetchAPI();
+  const transactionsFilterForm = useForm<TransactionsFilterData>({
+    defaultValues: {
+      title: '',
+      categoryId: '',
+      beginDate: dayjs().startOf('month').format('DD/MM/YYYY'),
+      endDate: dayjs().endOf('month').format('DD/MM/YYYY'),
+    },
+    resolver: zodResolver(transactionsFilterSchema),
+  });
+  const { categories, fetchCategories, createTransaction, fetchTransactions } =
+    useFetchAPI();
   const [open, setOpen] = useState(false);
 
   const {
@@ -48,7 +64,8 @@ export function CreateTransactionDialog() {
   const handleClose = useCallback(() => {
     reset();
     setOpen(false);
-  }, [reset]);
+    fetchTransactions(transactionsFilterForm.getValues());
+  }, [fetchTransactions, transactionsFilterForm, reset]);
 
   const onSubmit = useCallback(
     async (data: CreateTransactionData) => {
