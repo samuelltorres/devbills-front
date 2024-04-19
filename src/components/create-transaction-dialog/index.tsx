@@ -3,6 +3,7 @@ import { InputMask } from '@react-input/mask';
 import dayjs from 'dayjs';
 import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 import { useFetchAPI } from '../../hooks/useFetchAPI';
 import {
@@ -74,14 +75,14 @@ export function CreateTransactionDialog() {
     fetchCategories();
   }, [fetchCategories]);
 
-  const handleClose = useCallback(() => {
+  const handleClose = useCallback(async () => {
     const { beginDate, endDate } = transactionsFilterForm.getValues();
 
     reset();
     setOpen(false);
-    fetchTransactions(transactionsFilterForm.getValues());
-    fetchDashboard({ beginDate, endDate });
-    fetchFinancialEvolution(financialEvolutionFilterForm.getValues());
+    await fetchTransactions(transactionsFilterForm.getValues());
+    await fetchDashboard({ beginDate, endDate });
+    await fetchFinancialEvolution(financialEvolutionFilterForm.getValues());
   }, [
     reset,
     fetchTransactions,
@@ -93,7 +94,13 @@ export function CreateTransactionDialog() {
 
   const onSubmit = useCallback(
     async (data: CreateTransactionData) => {
-      await createTransaction(data);
+      await toast.promise(createTransaction(data), {
+        loading: 'Carregando...',
+        success: () => {
+          return `Transação criada com sucesso`;
+        },
+        error: 'Algo deu errado...',
+      });
       handleClose();
     },
     [handleClose, createTransaction],

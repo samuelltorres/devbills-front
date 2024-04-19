@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 import { useFetchAPI } from '../../hooks/useFetchAPI';
 import { theme } from '../../styles/theme';
@@ -35,7 +36,13 @@ export function CreateCategoryDialog() {
 
   const onSubmit = useCallback(
     async (data: CreateCategoryData) => {
-      await createCategory(data);
+      await toast.promise(createCategory(data), {
+        loading: 'Carregando...',
+        success: () => {
+          return 'Categoria criada com sucesso!';
+        },
+        error: 'Algo deu errado',
+      });
       handleClose();
       await fetchCategories();
     },
